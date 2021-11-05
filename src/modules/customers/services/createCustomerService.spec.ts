@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 
+import AppError from '../../../shared/errors/AppError';
 import CreateCustomerService from './CreateCustomerService';
-import ICustomersRepository from '../repositories/ICustomersRepository';
 
 describe('CreateCustomerService', () => {
     let service: CreateCustomerService;
@@ -37,5 +37,22 @@ describe('CreateCustomerService', () => {
             email: sut.email,
             password: sut.password,
         });
+    });
+
+    it('Should return an error if password and confirm Password is different', async () => {
+        const sut = {
+            name: 'any_name',
+            email: 'any_email',
+            password: 'abc',
+            confirmPassword: 'def',
+        };
+
+        try {
+            await service.execute(sut);
+        } catch (err) {
+            expect(err).toEqual(
+                new AppError('The password and this confirm does not match'),
+            );
+        }
     });
 });
