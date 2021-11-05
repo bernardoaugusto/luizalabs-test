@@ -17,6 +17,9 @@ export default class CreateCustomerService {
         password,
         confirmPassword,
     }: ICreateCustomerDTO): Promise<Customer> {
+        if (password !== confirmPassword)
+            throw new AppError('The password and this confirm does not match');
+
         const customer = new Customer();
         Object.assign(customer, {
             name,
