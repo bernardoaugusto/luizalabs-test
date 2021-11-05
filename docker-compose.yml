@@ -1,0 +1,38 @@
+version: '3.7'
+
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: builder
+        # command: sh -c "npm run build && npm run m:run && npm run start"
+        command: sh -c "npm run dev:server"
+        ports:
+            - '3000:3000'
+        volumes:
+            - .:/usr/app
+        environment:
+            NODE_ENV: dev
+            DB_HOST: db
+            DB_PORT: 5432
+            DB_USER: postgres
+            DB_PASSWORD: postgres
+            DB_NAME: luizalabs
+        container_name: luizalabs-test-app
+        depends_on:
+            - db
+    db:
+        image: postgres:13-alpine
+        restart: always
+        environment:
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: luizalabs
+        container_name: luizalabs-postgres
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+            - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+        ports:
+            - '5432:5432'
+volumes:
+    pgdata:
