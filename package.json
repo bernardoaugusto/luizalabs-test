@@ -6,7 +6,13 @@
     "scripts": {
         "build": "tsc",
         "test": "jest",
-        "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts tsc "
+        "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts tsc ",
+        "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+        "m:run": "npm run typeorm migration:run",
+        "m:drop": "npm run typeorm schema:drop",
+        "m:generate": "npm run typeorm migration:generate -- -n",
+        "migration:revert": "typeorm migration:revert",
+        "clean-database": "npm run typeorm schema:drop && npm run typeorm migration:run"
     },
     "keywords": [],
     "author": "Bernardo Augusto Bastos Silva",
