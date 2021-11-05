@@ -1,11 +1,11 @@
 import { Request, Response, Router } from 'express';
 
-const usersRouter = Router();
+const customersRouter = Router();
 
-usersRouter.post('/', (request: Request, response: Response) => {
+customersRouter.post('/', (request: Request, response: Response) => {
     return response.status(201).json({
         message: 'Hello World',
     });
 });
 
-export default usersRouter;
+export default customersRouter;
