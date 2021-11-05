@@ -1,11 +1,10 @@
 import { Request, Response, Router } from 'express';
 
-const customersRouter = Router();
+import CustomersController from '../controllers/CustomersController';
 
-customersRouter.post('/', (request: Request, response: Response) => {
-    return response.status(201).json({
-        message: 'Hello World',
-    });
-});
+const customersRouter = Router();
+const customersController = new CustomersController();
+
+customersRouter.post('/', customersController.create);
 
 export default customersRouter;
