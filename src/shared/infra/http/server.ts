@@ -5,6 +5,7 @@ import 'express-async-errors';
 import express, { NextFunction, Request, Response } from 'express';
 
 import AppError from '../../errors/AppError';
+import connection from '../connection';
 import cors from 'cors';
 import { errors } from 'celebrate';
 import routes from './routes';
@@ -31,5 +32,7 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
 });
 
 app.listen(3000, () => {
+    connection();
+
     console.log('😁 Server started on port 3000 😁');
 });

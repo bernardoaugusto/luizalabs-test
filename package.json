@@ -33,6 +33,7 @@
         "git-commit-msg-linter": "^3.2.8",
         "jest": "^27.3.1",
         "prettier": "^2.4.1",
+        "sqlite3": "^4.2.0",
         "ts-jest": "^27.0.7",
         "ts-node": "^10.4.0",
         "ts-node-dev": "^1.1.8",
