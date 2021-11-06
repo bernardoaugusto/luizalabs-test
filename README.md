@@ -2,6 +2,11 @@
 
 Esta documentação descreve a estrutura da API de clientes e lista de produtos favoritos.
 
+## Scrips
+- Instalar dependências: `npm install`
+- Testes: `npm run test`
+- Rodar o projeto: `docker-compose up`
+
 # Cliente
 ### Estrutura:
 
