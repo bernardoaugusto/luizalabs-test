@@ -13,7 +13,7 @@ interface IRequest {
 }
 
 interface IResponse {
-    customer: Customer;
+    user: Customer;
     token: string;
 }
 
@@ -29,13 +29,13 @@ export default class AuthenticateCustomerService {
 
     public async execute({ email, password }: IRequest): Promise<IResponse> {
         const errorMessage = 'Invalid email/password combination';
-        const customer = await this.customersRepository.findByEmail(email);
+        const user = await this.customersRepository.findByEmail(email);
 
-        if (!customer) throw new AppError(errorMessage, 401);
+        if (!user) throw new AppError(errorMessage, 401);
 
         const passwordMatched = await this.hashProvider.compareHash(
             password,
-            customer.password,
+            user.password,
         );
 
         if (!passwordMatched) throw new AppError(errorMessage, 401);
@@ -44,12 +44,12 @@ export default class AuthenticateCustomerService {
 
         const token = sign(
             {
-                name: customer.name,
+                name: user.name,
             },
             secret,
-            { subject: customer.id, expiresIn: `${expiresIn}` },
+            { subject: user.id, expiresIn: `${expiresIn}` },
         );
 
-        return { customer, token };
+        return { user, token };
     }
 }
