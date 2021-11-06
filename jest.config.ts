@@ -1,6 +1,6 @@
 export default {
     roots: ['<rootDir>/src'],
-    collectCoverage: false,
+    collectCoverage: true,
     collectCoverageFrom: [
         '<rootDir>/src/modules/**/*.ts',
         '!<rootDir>/src/modules/**/{dtos, repositories}/*.ts',

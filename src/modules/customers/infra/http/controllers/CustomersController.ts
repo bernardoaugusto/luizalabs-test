@@ -58,11 +58,8 @@ export default class CustomersController {
 
         const updateCustomerService = container.resolve(UpdateCustomerService);
 
-        const customerCreated = await updateCustomerService.execute(
-            customerId,
-            data,
-        );
+        const customer = await updateCustomerService.execute(customerId, data);
 
-        return response.status(200).json(classToClass(customerCreated));
+        return response.status(200).json(classToClass(customer));
     }
 }
