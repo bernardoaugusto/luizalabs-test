@@ -19,4 +19,6 @@ favoriteProductsRouter.patch(
     favoriteProductsController.create,
 );
 
+favoriteProductsRouter.get('/', favoriteProductsController.get);
+
 export default favoriteProductsRouter;
