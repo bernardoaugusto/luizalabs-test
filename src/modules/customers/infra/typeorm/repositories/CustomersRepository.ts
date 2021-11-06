@@ -33,6 +33,10 @@ class CustomersRepository implements ICustomersRepository {
     public async remove(id: string): Promise<void> {
         await this.ormRepository.delete({ id });
     }
+
+    public async update(customer: Customer): Promise<Customer> {
+        return this.ormRepository.save(customer);
+    }
 }
 
 export default CustomersRepository;

@@ -5,4 +5,5 @@ export default interface ICustomersRepository {
     findByEmail(email: string): Promise<Customer | undefined>;
     findById(id: string): Promise<Customer | undefined>;
     remove(id: string): Promise<void>;
+    update(customer: Customer): Promise<Customer>;
 }

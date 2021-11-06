@@ -56,4 +56,21 @@ describe('CustomersRepository', () => {
 
         expect(res).toBeUndefined();
     });
+
+    it('should be return update customer', async () => {
+        const sut = await makeSut();
+
+        const updateProps = {
+            name: 'update_name',
+            email: 'update_email',
+            password: 'update_password',
+        };
+
+        const { id, ...customerRes } = await customersRepository.update(
+            Object.assign(sut, updateProps),
+        );
+
+        expect(id).toEqual(sut.id);
+        expect(customerRes).toEqual(updateProps);
+    });
 });
