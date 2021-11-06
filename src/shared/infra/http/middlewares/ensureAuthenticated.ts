@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
-import AppError from '../../../../../shared/errors/AppError';
-import authConfig from '../../../../../config/auth';
+import AppError from '../../../errors/AppError';
+import authConfig from '../../../../config/auth';
 import { verify } from 'jsonwebtoken';
 
 interface ITokenPayload {
@@ -11,7 +11,7 @@ interface ITokenPayload {
 }
 
 export default function ensureAuthenticated(
-    request: Request & { user: { id: string } },
+    request: Request & { user?: { id: string } },
     response: Response,
     next: NextFunction,
 ): void {

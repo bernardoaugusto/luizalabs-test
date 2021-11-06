@@ -6,11 +6,11 @@ import { container } from 'tsyringe';
 
 export default class FavoriteProductsController {
     public async create(
-        request: Request & { user: { id: string } },
+        request: Request & { user?: { id: string } },
         response: Response,
     ): Promise<Response> {
-        const { productId } = request.params;
-        const customerId = request.user.id;
+        const productId = request.params.id;
+        const customerId = request.user!.id;
 
         const createFavoriteProductService = container.resolve(
             CreateFavoriteProductService,
