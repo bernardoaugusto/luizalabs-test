@@ -36,6 +36,17 @@ class FavoriteProductsRepository implements IFavoriteProductsRepository {
             where: { customerId },
         });
     }
+
+    public async removeByCustomerIdAndProductId(
+        customerId: string,
+        productId: string,
+    ): Promise<void> {
+        await this.ormRepository.delete({ customerId, productId });
+    }
+
+    public async removeByCustomerId(customerId: string): Promise<void> {
+        await this.ormRepository.delete({ customerId });
+    }
 }
 
 export default FavoriteProductsRepository;

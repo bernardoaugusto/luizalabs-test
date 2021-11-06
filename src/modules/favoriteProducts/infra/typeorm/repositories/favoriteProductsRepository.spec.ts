@@ -53,4 +53,33 @@ describe('FavoriteProductsRepository', () => {
         expect(res).toBeTruthy();
         expect(res[0].id).toBe(sut.id);
     });
+
+    it('should be remove favoriteProduct by customerId and productId', async () => {
+        const sut = await makeFavoriteProduct();
+
+        await favoriteProductsRepository.removeByCustomerIdAndProductId(
+            sut.customerId,
+            sut.productId,
+        );
+
+        const res = await favoriteProductsRepository.findByCustomerIdAndProductId(
+            sut.customerId,
+            sut.productId,
+        );
+
+        expect(res).toBeUndefined();
+    });
+
+    it('should be remove favoriteProduct by customerId', async () => {
+        const sut = await makeFavoriteProduct();
+
+        await favoriteProductsRepository.removeByCustomerId(sut.customerId);
+
+        const res = await favoriteProductsRepository.findByCustomerIdAndProductId(
+            sut.customerId,
+            sut.productId,
+        );
+
+        expect(res).toBeUndefined();
+    });
 });

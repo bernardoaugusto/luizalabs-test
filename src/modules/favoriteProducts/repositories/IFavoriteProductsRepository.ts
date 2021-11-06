@@ -9,4 +9,9 @@ export default interface IFavoriteProductsRepository {
     findAllFavoriteProductsByCustomerId(
         customerId: string,
     ): Promise<Array<FavoriteProduct>>;
+    removeByCustomerIdAndProductId(
+        customerId: string,
+        productId: string,
+    ): Promise<void>;
+    removeByCustomerId(customerId: string): Promise<void>;
 }

@@ -10,6 +10,8 @@ describe('CreateFavoriteProductService', () => {
         create: jest.Mock<any, any>;
         findByCustomerIdAndProductId: jest.Mock<any, any>;
         findAllFavoriteProductsByCustomerId: jest.Mock<any, any>;
+        removeByCustomerIdAndProductId: jest.Mock<any, any>;
+        removeByCustomerId: jest.Mock<any, any>;
     };
     let getProductByIdService: {
         execute: jest.Mock<any, any>;
@@ -21,6 +23,8 @@ describe('CreateFavoriteProductService', () => {
             create: jest.fn(),
             findByCustomerIdAndProductId: jest.fn(),
             findAllFavoriteProductsByCustomerId: jest.fn(),
+            removeByCustomerIdAndProductId: jest.fn(),
+            removeByCustomerId: jest.fn(),
         };
         getProductByIdService = {
             execute: jest.fn(),
