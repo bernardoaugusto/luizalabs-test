@@ -19,6 +19,15 @@ class FavoriteProductsRepository implements IFavoriteProductsRepository {
 
         return favoriteProduct;
     }
+
+    public async findByCustomerIdAndProductId(
+        customerId: string,
+        productId: string,
+    ): Promise<FavoriteProduct | undefined> {
+        return this.ormRepository.findOne({
+            where: { customerId, productId },
+        });
+    }
 }
 
 export default FavoriteProductsRepository;

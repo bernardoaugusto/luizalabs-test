@@ -8,11 +8,13 @@ describe('CreateFavoriteProductService', () => {
     let createFavoriteProductService: CreateFavoriteProductService;
     let favoriteProductsRepository: {
         create: jest.Mock<any, any>;
+        findByCustomerIdAndProductId: jest.Mock<any, any>;
     };
 
     beforeEach(() => {
         favoriteProductsRepository = {
             create: jest.fn(),
+            findByCustomerIdAndProductId: jest.fn(),
         };
 
         createFavoriteProductService = new CreateFavoriteProductService(
