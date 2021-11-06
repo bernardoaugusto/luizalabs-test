@@ -54,4 +54,22 @@ describe('Customers Routes', () => {
         ]);
         expect(createCustomersServiceSpy.execute.notCalled).toBe(true);
     });
+
+    it('should not call service of create and return status 400 when email is not valid', async () => {
+        const createCustomersServiceSpy =
+            sinon.createStubInstance(CreateCustomerService);
+
+        const sut = {
+            name: 'any_name',
+            email: 'invalid_email',
+            password: 'any_password',
+            confirmPassword: 'any_password',
+        };
+
+        const response = await request(app).post('/api/customers').send(sut);
+
+        expect(response.status).toBe(400);
+        expect(response.body.validation.body.keys).toEqual(['email']);
+        expect(createCustomersServiceSpy.execute.notCalled).toBe(true);
+    });
 });
