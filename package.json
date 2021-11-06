@@ -51,6 +51,7 @@
         "uuid": "^8.3.2"
     },
     "dependencies": {
+        "axios": "^0.24.0",
         "bcryptjs": "^2.4.3",
         "celebrate": "^15.0.0",
         "class-transformer": "^0.4.0",
