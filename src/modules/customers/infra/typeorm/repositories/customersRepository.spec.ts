@@ -1,6 +1,23 @@
 import Customer from '../entities/Customer';
 import CustomersRepository from './CustomersRepository';
 import connection from '../../../../../shared/infra/connection';
+import faker from 'faker';
+
+const makeSut = async (customerData?: Partial<Customer>): Promise<Customer> => {
+    const customersRepository = new CustomersRepository();
+    const sut = new Customer();
+    Object.assign(
+        sut,
+        {
+            name: 'any_name',
+            email: 'any_emaiil',
+            password: 'any_password',
+        },
+        customerData,
+    );
+
+    return customersRepository.create(sut);
+};
 
 describe('CustomersRepository', () => {
     let customersRepository: CustomersRepository;
@@ -11,16 +28,27 @@ describe('CustomersRepository', () => {
     });
 
     it('Should be able to insert a new Customer', async () => {
-        const customer = new Customer();
-        Object.assign(customer, {
+        const sut = new Customer();
+        Object.assign(sut, {
             name: 'any_name',
             email: 'any_emaiil',
             password: 'any_password',
         });
 
-        const { id, ...customerRes } = await customersRepository.create(customer);
+        const { id, ...customerRes } = await customersRepository.create(sut);
 
         expect(id).toBeDefined();
-        expect(customerRes).toEqual(customer);
+        expect(customerRes).toEqual(sut);
+    });
+
+    it('should be able to return a customer by email', async () => {
+        const sut = await makeSut({ email: faker.internet.email() });
+
+        const foundCustomer = (await customersRepository.findByEmail(
+            sut.email,
+        )) as Customer;
+
+        expect(foundCustomer).toBeTruthy();
+        expect(foundCustomer.id).toBe(sut.id);
     });
 });
