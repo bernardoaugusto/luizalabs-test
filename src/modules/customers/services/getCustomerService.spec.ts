@@ -9,6 +9,7 @@ describe('GetCustomerService', () => {
         create: jest.Mock<any, any>;
         findByEmail: jest.Mock<any, any>;
         findById: jest.Mock<any, any>;
+        remove: jest.Mock<any, any>;
     };
 
     beforeEach(() => {
@@ -16,6 +17,7 @@ describe('GetCustomerService', () => {
             create: jest.fn(),
             findByEmail: jest.fn(),
             findById: jest.fn(),
+            remove: jest.fn(),
         };
 
         getCustomerService = new GetCustomerService(customersRepository);

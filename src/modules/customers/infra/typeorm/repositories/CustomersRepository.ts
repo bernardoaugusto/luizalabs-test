@@ -29,6 +29,10 @@ class CustomersRepository implements ICustomersRepository {
             where: { id },
         });
     }
+
+    public async remove(id: string): Promise<void> {
+        await this.ormRepository.delete({ id });
+    }
 }
 
 export default CustomersRepository;
