@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import CreateCustomerService from '../../../services/CreateCustomerService';
 import GetCustomerService from '../../../services/GetCustomerService';
 import RemoveCustomerService from '../../../services/RemoveCustomerService';
+import UpdateCustomerService from '../../../services/UpdateCustomerService';
 import { classToClass } from 'class-transformer';
 import { container } from 'tsyringe';
 
@@ -46,5 +47,22 @@ export default class CustomersController {
         const customer = await removeCustomerService.execute(customerId);
 
         return response.status(204).json(classToClass(customer));
+    }
+
+    public async update(
+        request: Request & { user?: { id: string } },
+        response: Response,
+    ): Promise<Response> {
+        const data = request.body;
+        const customerId = request.user!.id;
+
+        const updateCustomerService = container.resolve(UpdateCustomerService);
+
+        const customerCreated = await updateCustomerService.execute(
+            customerId,
+            data,
+        );
+
+        return response.status(200).json(classToClass(customerCreated));
     }
 }
