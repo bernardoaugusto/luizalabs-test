@@ -1,8 +1,8 @@
 import { injectable, inject } from 'tsyringe';
 import AppError from '../../../shared/errors/AppError';
+import { IProductDTO } from '../../products/dto/IProductDTO';
 import GetProductByIdService from '../../products/services/GetProductByIdService';
 import ICreateFavoriteProductDTO from '../dtos/ICreateFavoriteProductDTO';
-import FavoriteProduct from '../infra/typeorm/entities/FavoriteProduct';
 import IFavoriteProductsRepository from '../repositories/IFavoriteProductsRepository';
 
 @injectable()
@@ -17,25 +17,16 @@ export default class GetFavoriteProductsService {
 
     public async execute({
         customerId,
-        productId,
-    }: ICreateFavoriteProductDTO): Promise<FavoriteProduct> {
-        const checProductIsAlreadyInFavorites =
-            await this.favoriteProductsRepository.findByCustomerIdAndProductId(
+    }: ICreateFavoriteProductDTO): Promise<Array<IProductDTO>> {
+        const favoriteProducts =
+            await this.favoriteProductsRepository.findAllFavoriteProductsByCustomerId(
                 customerId,
-                productId,
             );
 
-        if (checProductIsAlreadyInFavorites)
-            throw new AppError('The product is already in favorites');
-
-        await this.getProductByIdService.execute(productId);
-
-        const favoriteProduct = new FavoriteProduct();
-        Object.assign(favoriteProduct, {
-            customerId,
-            productId,
-        });
-
-        return this.favoriteProductsRepository.create(favoriteProduct);
+        return Promise.all(
+            favoriteProducts.map(product => {
+                return this.getProductByIdService.execute(product.productId);
+            }),
+        );
     }
 }
