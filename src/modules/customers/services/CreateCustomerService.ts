@@ -20,6 +20,12 @@ export default class CreateCustomerService {
         if (password !== confirmPassword)
             throw new AppError('The password and this confirm does not match');
 
+        const checkCustomerExists = await this.customersRepository.findByEmail(
+            email,
+        );
+
+        if (checkCustomerExists) throw new AppError('Email address already used');
+
         const customer = new Customer();
         Object.assign(customer, {
             name,
