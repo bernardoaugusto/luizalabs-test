@@ -33,10 +33,25 @@ describe('Customers Routes', () => {
         );
 
         const response = await request(app).post('/api/customers').send(sut);
-        console.log(response.body);
 
         expect(response.status).toBe(201);
         expect(response.body).toEqual(customer);
         expect(createCustomersServiceSpy.execute.called).toBe(true);
+    });
+
+    it('should not call service of create and return status 400 when not send correctly data', async () => {
+        const createCustomersServiceSpy =
+            sinon.createStubInstance(CreateCustomerService);
+
+        const response = await request(app).post('/api/customers');
+
+        expect(response.status).toBe(400);
+        expect(response.body.validation.body.keys).toEqual([
+            'name',
+            'email',
+            'password',
+            'confirmPassword',
+        ]);
+        expect(createCustomersServiceSpy.execute.notCalled).toBe(true);
     });
 });
