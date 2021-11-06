@@ -64,10 +64,9 @@ describe('CreateCustomerService', () => {
 
         try {
             await createCustomerService.execute(sut);
-        } catch (err) {
-            expect(err).toEqual(
-                new AppError('The password and this confirm does not match'),
-            );
+        } catch (err: any) {
+            expect(err).toBeInstanceOf(AppError);
+            expect(err.message).toBe('The password and this confirm does not match');
         }
     });
 
@@ -83,8 +82,9 @@ describe('CreateCustomerService', () => {
 
         try {
             await createCustomerService.execute(sut);
-        } catch (err) {
-            expect(err).toEqual(new AppError('Email address already used'));
+        } catch (err: any) {
+            expect(err).toBeInstanceOf(AppError);
+            expect(err.message).toBe('Email address already used');
         }
     });
 });

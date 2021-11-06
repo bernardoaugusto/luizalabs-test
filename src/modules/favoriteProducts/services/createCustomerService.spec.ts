@@ -71,8 +71,9 @@ describe('CreateFavoriteProductService', () => {
 
         try {
             await createFavoriteProductService.execute(sut);
-        } catch (err) {
-            expect(err).toEqual(new AppError('The product is already in favorites'));
+        } catch (err: any) {
+            expect(err).toBeInstanceOf(AppError);
+            expect(err.message).toBe('The product is already in favorites');
         }
     });
 
@@ -91,8 +92,9 @@ describe('CreateFavoriteProductService', () => {
 
         try {
             await createFavoriteProductService.execute(sut);
-        } catch (err) {
-            expect(err).toEqual(new AppError('product not found'));
+        } catch (err: any) {
+            expect(err).toBeInstanceOf(AppError);
+            expect(err.message).toBe('product not found');
         }
     });
 });
