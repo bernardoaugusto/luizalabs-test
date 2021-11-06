@@ -7,11 +7,13 @@ describe('CreateCustomerService', () => {
     let service: CreateCustomerService;
     let repository: {
         create: jest.Mock<any, any>;
+        findByEmail: jest.Mock<any, any>;
     };
 
     beforeEach(() => {
         repository = {
             create: jest.fn(),
+            findByEmail: jest.fn(),
         };
 
         service = new CreateCustomerService(repository);

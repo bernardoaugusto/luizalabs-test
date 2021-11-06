@@ -17,6 +17,12 @@ class CustomersRepository implements ICustomersRepository {
 
         return Customer;
     }
+
+    public async findByEmail(email: string): Promise<Customer | undefined> {
+        return this.ormRepository.findOne({
+            where: { email },
+        });
+    }
 }
 
 export default CustomersRepository;
