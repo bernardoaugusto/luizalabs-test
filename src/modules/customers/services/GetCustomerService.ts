@@ -1,6 +1,4 @@
 import { injectable, inject } from 'tsyringe';
-import AppError from '../../../shared/errors/AppError';
-import ICreateCustomerDTO from '../dtos/ICreateCustomerDTO';
 import Customer from '../infra/typeorm/entities/Customer';
 import ICustomersRepository from '../repositories/ICustomersRepository';
 
