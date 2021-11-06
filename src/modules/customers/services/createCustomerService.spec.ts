@@ -4,40 +4,51 @@ import AppError from '../../../shared/errors/AppError';
 import CreateCustomerService from './CreateCustomerService';
 
 describe('CreateCustomerService', () => {
-    let service: CreateCustomerService;
-    let repository: {
+    let createCustomerService: CreateCustomerService;
+    let customersRepository: {
         create: jest.Mock<any, any>;
         findByEmail: jest.Mock<any, any>;
     };
+    let hashProvider: {
+        generateHash: jest.Mock<any, any>;
+        compareHash: jest.Mock<any, any>;
+    };
 
     beforeEach(() => {
-        repository = {
+        customersRepository = {
             create: jest.fn(),
             findByEmail: jest.fn(),
         };
+        hashProvider = {
+            generateHash: jest.fn(),
+            compareHash: jest.fn(),
+        };
 
-        service = new CreateCustomerService(repository);
+        createCustomerService = new CreateCustomerService(
+            customersRepository,
+            hashProvider,
+        );
     });
 
     it('Should return the created customer', async () => {
-        const sut = {
+        const customer = {
             name: 'any_name',
             email: 'any_email',
+        };
+
+        const sut = {
+            ...customer,
             password: 'any_password',
             confirmPassword: 'any_password',
         };
 
-        repository.create.mockResolvedValue({
-            name: sut.name,
-            email: sut.email,
-            password: sut.password,
-        });
-        const res = await service.execute(sut);
+        customersRepository.create.mockResolvedValue(customer);
+        const res = await createCustomerService.execute(sut);
 
-        expect(res).toEqual({
-            name: sut.name,
-            email: sut.email,
-            password: sut.password,
+        expect(res).toEqual(customer);
+        expect(customersRepository.create).toHaveBeenCalledWith({
+            ...customer,
+            password: undefined,
         });
     });
 
@@ -50,7 +61,7 @@ describe('CreateCustomerService', () => {
         };
 
         try {
-            await service.execute(sut);
+            await createCustomerService.execute(sut);
         } catch (err) {
             expect(err).toEqual(
                 new AppError('The password and this confirm does not match'),
@@ -66,10 +77,10 @@ describe('CreateCustomerService', () => {
             confirmPassword: 'abc',
         };
 
-        repository.findByEmail.mockResolvedValue(sut);
+        customersRepository.findByEmail.mockResolvedValue(sut);
 
         try {
-            await service.execute(sut);
+            await createCustomerService.execute(sut);
         } catch (err) {
             expect(err).toEqual(new AppError('Email address already used'));
         }
