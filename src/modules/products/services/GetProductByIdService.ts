@@ -1,5 +1,5 @@
 import AppError from '../../../shared/errors/AppError';
-import { IProductDTO } from '../dto/IProductDTO';
+import { IProductDTO } from '../dtos/IProductDTO';
 import axios from 'axios';
 
 export default class GetProductByIdService {
