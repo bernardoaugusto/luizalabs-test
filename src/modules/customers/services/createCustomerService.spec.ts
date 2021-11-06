@@ -57,4 +57,21 @@ describe('CreateCustomerService', () => {
             );
         }
     });
+
+    it('Should return error if email is already registered', async () => {
+        const sut = {
+            name: 'any_name',
+            email: 'emailAlreadyRegistered',
+            password: 'abc',
+            confirmPassword: 'abc',
+        };
+
+        repository.findByEmail.mockResolvedValue(sut);
+
+        try {
+            await service.execute(sut);
+        } catch (err) {
+            expect(err).toEqual(new AppError('Email address already used'));
+        }
+    });
 });
