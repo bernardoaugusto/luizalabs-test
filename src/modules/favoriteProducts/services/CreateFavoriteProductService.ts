@@ -28,7 +28,6 @@ export default class CreateFavoriteProductService {
         if (checProductIsAlreadyInFavorites)
             throw new AppError('The product is already in favorites');
 
-        console.log('aqui');
         await this.validateProductExists.execute(productId);
 
         const favoriteProduct = new FavoriteProduct();

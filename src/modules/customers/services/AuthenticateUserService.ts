@@ -32,6 +32,7 @@ export default class AuthenticateCustomerService {
         const user = await this.customersRepository.findByEmail(email);
 
         if (!user) throw new AppError(errorMessage, 401);
+        delete user.favoriteProducts;
 
         const passwordMatched = await this.hashProvider.compareHash(
             password,

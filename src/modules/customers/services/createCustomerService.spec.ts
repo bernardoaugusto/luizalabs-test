@@ -8,6 +8,7 @@ describe('CreateCustomerService', () => {
     let customersRepository: {
         create: jest.Mock<any, any>;
         findByEmail: jest.Mock<any, any>;
+        findById: jest.Mock<any, any>;
     };
     let hashProvider: {
         generateHash: jest.Mock<any, any>;
@@ -18,6 +19,7 @@ describe('CreateCustomerService', () => {
         customersRepository = {
             create: jest.fn(),
             findByEmail: jest.fn(),
+            findById: jest.fn(),
         };
         hashProvider = {
             generateHash: jest.fn(),

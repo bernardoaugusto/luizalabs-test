@@ -36,4 +36,14 @@ describe('CustomersRepository', () => {
         expect(foundCustomer).toBeTruthy();
         expect(foundCustomer.id).toBe(sut.id);
     });
+    it('should be able to return a customer by id', async () => {
+        const sut = await makeSut();
+
+        const foundCustomer = (await customersRepository.findById(
+            sut.id,
+        )) as Customer;
+
+        expect(foundCustomer).toBeTruthy();
+        expect(foundCustomer.id).toBe(sut.id);
+    });
 });
