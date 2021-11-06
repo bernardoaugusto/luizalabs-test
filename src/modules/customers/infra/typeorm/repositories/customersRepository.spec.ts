@@ -46,4 +46,14 @@ describe('CustomersRepository', () => {
         expect(foundCustomer).toBeTruthy();
         expect(foundCustomer.id).toBe(sut.id);
     });
+
+    it('should be remove customer by id', async () => {
+        const sut = await makeSut();
+
+        await customersRepository.remove(sut.id);
+
+        const res = await customersRepository.findById(sut.id);
+
+        expect(res).toBeUndefined();
+    });
 });
