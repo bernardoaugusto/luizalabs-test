@@ -1,6 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Exclude } from 'class-transformer';
+import FavoriteProduct from '../../../../favoriteProducts/infra/typeorm/entities/FavoriteProduct';
 
 @Entity('customers')
 class Customer {
@@ -16,6 +17,9 @@ class Customer {
     @Column()
     @Exclude()
     password: string;
+
+    @OneToMany(() => FavoriteProduct, favoriteProduct => favoriteProduct.customer)
+    favoriteProducts: Array<FavoriteProduct>;
 }
 
 export default Customer;
