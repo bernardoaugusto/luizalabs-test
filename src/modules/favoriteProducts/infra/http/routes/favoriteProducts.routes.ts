@@ -21,4 +21,15 @@ favoriteProductsRouter.patch(
 
 favoriteProductsRouter.get('/', favoriteProductsController.get);
 
+favoriteProductsRouter.patch(
+    '/remove/:id',
+    celebrate(
+        {
+            [Segments.PARAMS]: validateIdSchema,
+        },
+        configValidateRoute,
+    ),
+    favoriteProductsController.remove,
+);
+
 export default favoriteProductsRouter;
