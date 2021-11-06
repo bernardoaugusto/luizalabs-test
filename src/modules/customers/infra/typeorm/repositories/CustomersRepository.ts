@@ -10,12 +10,12 @@ class CustomersRepository implements ICustomersRepository {
         this.ormRepository = getRepository(Customer);
     }
 
-    public async create(CustomerData: Customer): Promise<Customer> {
-        const Customer = this.ormRepository.create(CustomerData);
+    public async create(customerData: Customer): Promise<Customer> {
+        const customer = this.ormRepository.create(customerData);
 
-        await this.ormRepository.save(Customer);
+        await this.ormRepository.save(customer);
 
-        return Customer;
+        return customer;
     }
 
     public async findByEmail(email: string): Promise<Customer | undefined> {
