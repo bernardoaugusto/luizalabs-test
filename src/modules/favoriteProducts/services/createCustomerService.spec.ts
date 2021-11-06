@@ -41,4 +41,21 @@ describe('CreateFavoriteProductService', () => {
         });
         expect(favoriteProductsRepository.create).toHaveBeenCalledWith(sut);
     });
+
+    it('Should return error if the product is already in the favorites list', async () => {
+        const sut = {
+            customerId: uuid(),
+            productId: uuid(),
+        };
+
+        favoriteProductsRepository.findByCustomerIdAndProductId.mockResolvedValue(
+            sut,
+        );
+
+        try {
+            await createFavoriteProductService.execute(sut);
+        } catch (err) {
+            expect(err).toEqual(new AppError('The product is already in favorites'));
+        }
+    });
 });
