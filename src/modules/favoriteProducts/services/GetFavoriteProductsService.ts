@@ -15,9 +15,7 @@ export default class GetFavoriteProductsService {
         private getProductByIdService: GetProductByIdService,
     ) {}
 
-    public async execute({
-        customerId,
-    }: ICreateFavoriteProductDTO): Promise<Array<IProductDTO>> {
+    public async execute(customerId: string): Promise<Array<IProductDTO>> {
         const favoriteProducts =
             await this.favoriteProductsRepository.findAllFavoriteProductsByCustomerId(
                 customerId,
