@@ -2,7 +2,6 @@ import { injectable, inject } from 'tsyringe';
 import AppError from '../../../shared/errors/AppError';
 import { IProductDTO } from '../../products/dtos/IProductDTO';
 import GetProductByIdService from '../../products/services/GetProductByIdService';
-import ICreateFavoriteProductDTO from '../dtos/ICreateFavoriteProductDTO';
 import IFavoriteProductsRepository from '../repositories/IFavoriteProductsRepository';
 
 @injectable()

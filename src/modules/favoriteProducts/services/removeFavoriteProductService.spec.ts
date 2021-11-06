@@ -29,7 +29,7 @@ describe('RemoveFavoriteProductService', () => {
         );
     });
 
-    it('Should return the void id remove FavoriteProduct', async () => {
+    it('Should return void if remove FavoriteProduct', async () => {
         const sut = {
             customerId: uuid(),
             productId: uuid(),
