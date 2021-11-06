@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 
+import AppError from '../../../shared/errors/AppError';
 import UpdateCustomerService from './UpdateCustomerService';
 import { v4 as uuid } from 'uuid';
 
@@ -25,7 +26,7 @@ describe('UpdateCustomerService', () => {
         updateCustomerService = new UpdateCustomerService(customersRepository);
     });
 
-    it('Should return the created customer', async () => {
+    it('Should return the update customer', async () => {
         const customerId = uuid();
         const sut = {
             name: 'update_name',
@@ -57,5 +58,30 @@ describe('UpdateCustomerService', () => {
             id: customerId,
             ...sut,
         });
+    });
+
+    it('Should return error if email is already registered', async () => {
+        const customerId = uuid();
+        const sut = {
+            name: 'update_name',
+            email: 'update_email@mail.com',
+        };
+
+        customersRepository.findById.mockResolvedValue({
+            id: customerId,
+            name: 'any_name',
+            email: 'any_email',
+        });
+
+        customersRepository.findByEmail.mockResolvedValue({
+            id: uuid(),
+        });
+
+        try {
+            await updateCustomerService.execute(customerId, sut);
+        } catch (err: any) {
+            expect(err).toBeInstanceOf(AppError);
+            expect(err.message).toBe('Email address already used');
+        }
     });
 });
