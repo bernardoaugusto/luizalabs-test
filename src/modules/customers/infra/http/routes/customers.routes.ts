@@ -22,4 +22,6 @@ customersRouter.post(
 
 customersRouter.get('/', ensureAuthenticated, customersController.get);
 
+customersRouter.delete('/', ensureAuthenticated, customersController.remove);
+
 export default customersRouter;
