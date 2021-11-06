@@ -28,6 +28,14 @@ class FavoriteProductsRepository implements IFavoriteProductsRepository {
             where: { customerId, productId },
         });
     }
+
+    public async findAllFavoriteProductsByCustomerId(
+        customerId: string,
+    ): Promise<Array<FavoriteProduct>> {
+        return this.ormRepository.find({
+            where: { customerId },
+        });
+    }
 }
 
 export default FavoriteProductsRepository;

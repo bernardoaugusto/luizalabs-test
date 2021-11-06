@@ -41,4 +41,16 @@ describe('FavoriteProductsRepository', () => {
         expect(foundFavoriteProduct).toBeTruthy();
         expect(foundFavoriteProduct.id).toBe(sut.id);
     });
+
+    it('should be able to return all favoriteProduct by customerId', async () => {
+        const sut = await makeFavoriteProduct();
+
+        const res =
+            await favoriteProductsRepository.findAllFavoriteProductsByCustomerId(
+                sut.customerId,
+            );
+
+        expect(res).toBeTruthy();
+        expect(res[0].id).toBe(sut.id);
+    });
 });

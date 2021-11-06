@@ -9,6 +9,7 @@ describe('CreateFavoriteProductService', () => {
     let favoriteProductsRepository: {
         create: jest.Mock<any, any>;
         findByCustomerIdAndProductId: jest.Mock<any, any>;
+        findAllFavoriteProductsByCustomerId: jest.Mock<any, any>;
     };
     let getProductByIdService: {
         execute: jest.Mock<any, any>;
@@ -19,6 +20,7 @@ describe('CreateFavoriteProductService', () => {
         favoriteProductsRepository = {
             create: jest.fn(),
             findByCustomerIdAndProductId: jest.fn(),
+            findAllFavoriteProductsByCustomerId: jest.fn(),
         };
         getProductByIdService = {
             execute: jest.fn(),

@@ -6,4 +6,7 @@ export default interface IFavoriteProductsRepository {
         customerId: string,
         productId: string,
     ): Promise<FavoriteProduct | undefined>;
+    findAllFavoriteProductsByCustomerId(
+        customerId: string,
+    ): Promise<Array<FavoriteProduct>>;
 }

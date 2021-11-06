@@ -18,9 +18,7 @@ class Customer {
     @Exclude()
     password: string;
 
-    @OneToMany(() => FavoriteProduct, favoriteProduct => favoriteProduct.customer, {
-        eager: true,
-    })
+    @OneToMany(() => FavoriteProduct, favoriteProduct => favoriteProduct.customer)
     favoriteProducts?: Array<FavoriteProduct>;
 }
 
